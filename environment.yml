@@ -1,0 +1,10 @@
+name: pipeline
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6.5
+  - pip
+  - pip:
+    - numpy==1.17.2
+    - opencv-contrib-python==4.0.0.21
+    - tqdm==4.19.9
