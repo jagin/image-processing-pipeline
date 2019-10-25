@@ -6,6 +6,8 @@ from pipeline.pipeline import Pipeline
 
 
 class SaveSummary(Pipeline):
+    """Pipeline task to save processing summary."""
+
     def __init__(self, filename):
         self.filename = filename
 
@@ -13,15 +15,20 @@ class SaveSummary(Pipeline):
         super(SaveSummary, self).__init__()
 
     def map(self, data):
-        image_file = data["image_file"]
+        image_id = data["image_id"]
         face_files = data["face_files"]
-        face_rects = data["face_rects"]
+        faces = data["faces"]
 
-        # Buffer summary results
-        self.summary[image_file] = {}
-        for i, (x, y, w, h) in enumerate(face_rects):
+        # Loop over all detected faces and buffer summary results
+        self.summary[image_id] = {}
+        for i, face in enumerate(faces):
+            box, confidence = face
+            (x1, y1, x2, y2) = box.astype("int")
             face_file = face_files[i]
-            self.summary[image_file][face_file] = np.array([x, y, w, h], dtype=int).tolist()
+            self.summary[image_id][face_file] = {
+                "box": np.array([x1, y1, x2, y2], dtype=int).tolist(),
+                "confidence": confidence.item()
+            }
 
         return data
 

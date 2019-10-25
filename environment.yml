@@ -4,7 +4,8 @@ channels:
 dependencies:
   - python=3.6.5
   - pip
+  - numpy==1.17.2
+  - tqdm=4.19.9
+  - pytest==5.1.1
   - pip:
-    - numpy==1.17.2
     - opencv-contrib-python==4.0.0.21
-    - tqdm==4.19.9

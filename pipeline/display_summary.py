@@ -6,9 +6,9 @@ class DisplaySummary(Pipeline):
         super(DisplaySummary, self).__init__()
 
     def map(self, data):
-        image_file = data["image_file"]
-        face_rects = data["face_rects"]
+        image_id = data["image_id"]
+        face_rects = data["faces"]
 
-        print(f"[INFO] {image_file}: face detections {len(face_rects)}")
+        print(f"[INFO] {image_id}: face detections {len(face_rects)}")
 
         return data
